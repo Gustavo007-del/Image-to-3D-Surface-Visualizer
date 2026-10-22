@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07111f" />
+    <meta name="description" content="Turn images into interactive GPU-displaced 3D surfaces." />
+    <title>Image → Surface</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Image to Surface home">
+          <span class="brand-mark" aria-hidden="true">⌁</span>
+          <span>IMAGE <em>→</em> SURFACE</span>
+        </a>
+        <p class="tagline">GPU height-field laboratory</p>
+        <div class="topbar-actions">
+          <button id="reset-view" class="button ghost" type="button">Reset view</button>
+          <button id="save-image" class="button ghost" type="button">Save PNG</button>
+        </div>
+      </header>
+
+      <section id="stage" class="stage" aria-label="3D surface visualizer">
+        <canvas id="webgl-canvas"></canvas>
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-icon" aria-hidden="true">↥</div>
+          <p>Drop an image to sculpt a surface</p>
+          <span>PNG, JPG or WebP · up to 20 MB</span>
+          <label class="button primary" for="image-input">Choose image</label>
+          <input id="image-input" type="file" accept="image/png,image/jpeg,image/webp" hidden />
+        </div>
+        <aside class="analysis-card" aria-label="Height map analysis">
+          <div class="analysis-heading">
+            <span>HEIGHT DISTRIBUTION</span>
+            <span id="histogram-range">--</span>
+          </div>
+          <canvas id="histogram" width="252" height="62" aria-label="Histogram of the selected height channel"></canvas>
+          <p id="histogram-summary">Luminance · 0–255</p>
+        </aside>
+        <div class="hud hud-left">
+          <span id="image-label">Procedural terrain</span>
+          <span class="hud-dot" aria-hidden="true"></span>
+          <span id="fps">-- FPS</span>
+        </div>
+        <div class="hud hud-right">DRAG TO ORBIT · SCROLL TO ZOOM</div>
+        <div id="status" class="status" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="info-strip">
+        <div><span class="eyebrow">INPUT</span><strong>Image luminance</strong></div>
+        <div><span class="eyebrow">PROCESS</span><strong>GLSL vertex displacement</strong></div>
+        <div><span class="eyebrow">OUTPUT</span><strong>Interactive height field</strong></div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
